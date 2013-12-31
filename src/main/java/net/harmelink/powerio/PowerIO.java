@@ -1,9 +1,9 @@
 package net.harmelink.powerio;
 
+import gnu.io.CommPortIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.comm.CommPortIdentifier;
 import java.util.Enumeration;
 
 public class PowerIO {

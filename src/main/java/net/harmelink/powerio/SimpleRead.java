@@ -1,6 +1,7 @@
 package net.harmelink.powerio;
 
-import javax.comm.*;
+import gnu.io.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.TooManyListenersException;
@@ -12,8 +13,8 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
 
     public SimpleRead(final CommPortIdentifier portId) {
         try {
-            serialPort = (SerialPort) portId.open("SimpleReadApp", 2000);
-        } catch (PortInUseException e) {
+            serialPort = portId.open("SimpleReadApp", 2000);
+        } catch (final PortInUseException e) {
             System.out.println(e);
         }
         try {
@@ -32,7 +33,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);
-        } catch (UnsupportedCommOperationException e) {
+        } catch (final UnsupportedCommOperationException e) {
             System.out.println(e);
         }
         readThread = new Thread(this);
