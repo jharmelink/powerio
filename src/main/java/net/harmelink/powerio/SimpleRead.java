@@ -1,42 +1,36 @@
 package net.harmelink.powerio;
 
 import gnu.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.TooManyListenersException;
 
 public class SimpleRead implements Runnable, SerialPortEventListener {
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleRead.class);
+
     private InputStream inputStream;
-    private SerialPort serialPort;
-    private Thread readThread;
 
     public SimpleRead(final CommPortIdentifier portId) {
         try {
-            serialPort = portId.open("SimpleReadApp", 2000);
-        } catch (final PortInUseException e) {
-            System.out.println(e);
-        }
-        try {
+            final SerialPort serialPort = (SerialPort) portId.open("SimpleReadApp", 2000);
             inputStream = serialPort.getInputStream();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        try {
             serialPort.addEventListener(this);
-        } catch (TooManyListenersException e) {
-            System.out.println(e);
-        }
-        serialPort.notifyOnDataAvailable(true);
-        try {
-            serialPort.setSerialPortParams(9600,
-                    SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
+            serialPort.notifyOnDataAvailable(true);
+            serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+        } catch (final PortInUseException e) {
+            LOG.error("Port in use: {}", e.getMessage());
+        } catch (final IOException e) {
+            LOG.error("No serial port found: {}", e.getMessage());
+        } catch (final TooManyListenersException e) {
+            LOG.error("Too many listeners: {}", e.getMessage());
         } catch (final UnsupportedCommOperationException e) {
-            System.out.println(e);
+            LOG.error("Unsupported communication operation: {}", e.getMessage());
         }
-        readThread = new Thread(this);
+
+        final Thread readThread = new Thread(this);
         readThread.start();
     }
 
@@ -44,7 +38,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
         try {
             Thread.sleep(20000);
         } catch (final InterruptedException e) {
-            System.out.println(e);
+            LOG.error(e.getMessage());
         }
     }
 

@@ -13,7 +13,10 @@ public class PowerIO {
 
     public static void main(final String[] args) {
         final CommPortIdentifier portId = getSerialPort();
-        final SimpleRead reader = new SimpleRead(portId);
+
+        if (portId != null) {
+            final SimpleRead reader = new SimpleRead(portId);
+        }
     }
 
     private static CommPortIdentifier getSerialPort() {
