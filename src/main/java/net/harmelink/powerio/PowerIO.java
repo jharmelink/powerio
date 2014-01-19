@@ -25,10 +25,11 @@ public class PowerIO {
 
         while (portList.hasMoreElements()) {
             final CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
+            LOG.debug("Found {} port {}", portId.getPortType(), portId.getName());
 
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
                 if (portId.getName().equals(SERIAL_PORT_NAME)) {
-                    LOG.error("Found serial port " + SERIAL_PORT_NAME);
+                    LOG.debug("Using {} port {}", CommPortIdentifier.PORT_SERIAL, SERIAL_PORT_NAME);
                     return portId;
                 }
             }
