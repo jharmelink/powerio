@@ -61,9 +61,9 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
                     while (inputStream.available() > 0) {
                         int numBytes = inputStream.read(readBuffer);
                     }
-                    System.out.print(new String(readBuffer));
-                } catch (IOException e) {
-                    System.out.println(e);
+                    LOG.debug(new String(readBuffer));
+                } catch (final IOException e) {
+                    LOG.error("Unable to read serial event.\n{}", e.getMessage());
                 }
                 break;
         }
