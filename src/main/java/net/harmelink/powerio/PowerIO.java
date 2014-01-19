@@ -12,6 +12,7 @@ public class PowerIO {
     private static final String SERIAL_PORT_NAME = "COM1";
 
     public static void main(final String[] args) {
+        LOG.debug("Java extensions paths: {}", System.getProperty("java.ext.dirs"));
         final CommPortIdentifier portId = getSerialPort();
 
         if (portId != null) {
