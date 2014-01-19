@@ -13,21 +13,22 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
 
     private InputStream inputStream;
 
-    public SimpleRead(final CommPortIdentifier portId) {
+    public SimpleRead(final CommPortIdentifier portId, final int serialPortBaudrate) {
         try {
             final SerialPort serialPort = (SerialPort) portId.open("SimpleReadApp", 2000);
             inputStream = serialPort.getInputStream();
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
-            serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+            serialPort.setSerialPortParams(serialPortBaudrate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);
         } catch (final PortInUseException e) {
-            LOG.error("Port in use: {}", e.getMessage());
+            LOG.error("Port in use. {}", e.getMessage());
         } catch (final IOException e) {
-            LOG.error("No serial port found: {}", e.getMessage());
+            LOG.error("No serial port found. {}", e.getMessage());
         } catch (final TooManyListenersException e) {
-            LOG.error("Too many listeners: {}", e.getMessage());
+            LOG.error("Too many listeners. {}", e.getMessage());
         } catch (final UnsupportedCommOperationException e) {
-            LOG.error("Unsupported communication operation: {}", e.getMessage());
+            LOG.error("Unsupported communication operation. {}", e.getMessage());
         }
 
         final Thread readThread = new Thread(this);
@@ -63,7 +64,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
                     }
                     LOG.debug(new String(readBuffer));
                 } catch (final IOException e) {
-                    LOG.error("Unable to read serial event.\n{}", e.getMessage());
+                    LOG.error("Unable to read serial event. {}", e.getMessage());
                 }
                 break;
         }

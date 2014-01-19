@@ -12,18 +12,21 @@ import java.util.Properties;
 public class PowerIO {
     private static final Logger LOG = LoggerFactory.getLogger(PowerIO.class);
 
-    private static final String SERIAL_PORT_NAME = getProperty("serial.port.name");
-
     public static void main(final String[] args) {
-        LOG.debug("Java extensions paths: {}", System.getProperty("java.ext.dirs"));
-        final CommPortIdentifier portId = getSerialPort();
+        new PowerIO(initProperties());
+    }
+
+    public PowerIO(final Properties properties) {
+        final String serialPortName = properties.getProperty("serial.port.name");
+        final int serialPortBaudrate = Integer.valueOf(properties.getProperty("serial.port.baudrate"));
+        final CommPortIdentifier portId = getSerialPort(serialPortName);
 
         if (portId != null) {
-            final SimpleRead reader = new SimpleRead(portId);
+            final SimpleRead reader = new SimpleRead(portId, serialPortBaudrate);
         }
     }
 
-    private static CommPortIdentifier getSerialPort() {
+    private CommPortIdentifier getSerialPort(final String serialPortName) {
         final Enumeration portList = CommPortIdentifier.getPortIdentifiers();
 
         while (portList.hasMoreElements()) {
@@ -31,8 +34,8 @@ public class PowerIO {
             LOG.debug("Found port {}", portId.getName());
 
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                if (portId.getName().equals(SERIAL_PORT_NAME)) {
-                    LOG.debug("Using port {}", SERIAL_PORT_NAME);
+                if (portId.getName().equals(serialPortName)) {
+                    LOG.debug("Using port {}", serialPortName);
                     return portId;
                 }
             }
@@ -42,7 +45,7 @@ public class PowerIO {
         return null;
     }
 
-    private static String getProperty(final String name) {
+    private static Properties initProperties() {
         final Properties properties = new Properties();
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         final InputStream stream = loader.getResourceAsStream("powerio.properties");
@@ -50,10 +53,10 @@ public class PowerIO {
         try {
             properties.load(stream);
         } catch (final IOException e) {
-            LOG.error("Error loading properties file.\n{}", e.getMessage());
+            LOG.error("Error loading properties file. {}", e.getMessage());
             e.printStackTrace();
         }
 
-        return properties.getProperty(name);
+        return properties;
     }
 }
