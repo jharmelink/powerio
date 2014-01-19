@@ -19,8 +19,8 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
             inputStream = serialPort.getInputStream();
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
-            serialPort.setSerialPortParams(serialPortBaudrate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
+            serialPort.setSerialPortParams(serialPortBaudrate, SerialPort.DATABITS_7, SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_EVEN);
         } catch (final PortInUseException e) {
             LOG.error("Port in use. {}", e.getMessage());
         } catch (final IOException e) {
