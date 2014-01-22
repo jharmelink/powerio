@@ -11,6 +11,8 @@ import java.util.TooManyListenersException;
 public class SimpleRead implements Runnable, SerialPortEventListener {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleRead.class);
 
+    private final ModelWriter modelWriter = new ModelWriter();;
+
     private InputStream inputStream;
 
     public SimpleRead(final CommPortIdentifier portId, final int serialPortBaudrate) {
@@ -62,7 +64,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
                     while (inputStream.available() > 0) {
                         int numBytes = inputStream.read(readBuffer);
                     }
-                    LOG.debug(new String(readBuffer));
+                    modelWriter.write(readBuffer);
                 } catch (final IOException e) {
                     LOG.error("Unable to read serial event. {}", e.getMessage());
                 }
