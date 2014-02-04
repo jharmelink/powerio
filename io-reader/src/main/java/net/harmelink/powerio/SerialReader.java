@@ -25,6 +25,7 @@ public class SerialReader extends Verticle {
     }
 
     private CommPortIdentifier getSerialPort(final String serialPortName) {
+        System.setProperty("gnu.io.rxtx.SerialPorts", serialPortName);
         final Enumeration portList = CommPortIdentifier.getPortIdentifiers();
 
         while (portList.hasMoreElements()) {
