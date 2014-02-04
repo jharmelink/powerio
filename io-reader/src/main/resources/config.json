@@ -1,0 +1,4 @@
+{
+    "serial.port.name": "/dev/ttyUSB0",
+    "serial.port.baudrate": 9600
+}

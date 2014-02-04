@@ -1,3 +1,4 @@
-powerio.iml
+*.iml
 .idea
 target
+vertx_classpath.txt

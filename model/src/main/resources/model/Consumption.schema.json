@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "javaType": "net.harmelink.powerio.model.Consumption",
+    "description": "A power consumption",
+    "properties": {
+        "value": {
+            "type" : "number",
+            "description": "Power consumption value",
+            "required" : true
+        },
+        "unit": {
+            "type" : "string",
+            "enum": [
+                "kWh"
+            ],
+            "description": "Power consumption unit",
+            "required" : true
+        }
+    },
+    "additionalProperties": false
+}

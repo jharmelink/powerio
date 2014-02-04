@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "javaType": "net.harmelink.powerio.model.Telegram",
+    "description": "A power telegram",
+    "properties": {
+        "supplier": {
+            "$ref": "Supplier.schema.json",
+            "required": true
+        },
+        "timestamp": {
+            "type": "string",
+            "description": "The timestamp",
+            "required": true
+        },
+        "serial": {
+            "type": "string",
+            "description": "The serial number",
+            "required": true
+        },
+        "currentConsumption": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "currentDelivery": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "totalConsumptionPeak": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "totalConsumptionOffPeak": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "totalDeliveryPeak": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "totalDeliveryOffPeak": {
+            "$ref": "Consumption.schema.json",
+            "required": true
+        },
+        "currentRate": {
+            "type": "integer",
+            "description": "The current rate",
+            "required": true
+        },
+        "currentSwitchPosition": {
+            "type": "boolean",
+            "description": "The current switch position",
+            "required": true
+        },
+        "message": {
+            "type": "string",
+            "description": "A message",
+            "required": false
+        },
+        "gasSerial": {
+            "type": "string",
+            "description": "Serial number of the gas meter",
+            "required": false
+        }
+    },
+    "additionalProperties": false
+}

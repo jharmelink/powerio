@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "javaType": "net.harmelink.powerio.model.Type",
+    "description": "Channel type",
+    "properties": {
+        "id": {
+            "type" : "string",
+            "description": "The type identifier",
+            "required" : true
+        },
+        "description": {
+            "type" : "string",
+            "description": "The type description",
+            "required" : true
+        }
+    },
+    "additionalProperties": false
+}

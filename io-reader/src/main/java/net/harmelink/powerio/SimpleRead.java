@@ -11,11 +11,20 @@ import java.util.TooManyListenersException;
 public class SimpleRead implements Runnable, SerialPortEventListener {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleRead.class);
 
-    private final ModelWriter modelWriter = new ModelWriter();;
+    private final CommPortIdentifier portId;
+
+    private final int serialPortBaudrate;
+
+    private final ModelWriter modelWriter = new ModelWriter();
 
     private InputStream inputStream;
 
     public SimpleRead(final CommPortIdentifier portId, final int serialPortBaudrate) {
+        this.portId = portId;
+        this.serialPortBaudrate = serialPortBaudrate;
+    }
+
+    public void start() {
         try {
             final SerialPort serialPort = (SerialPort) portId.open("SimpleReadApp", 2000);
             inputStream = serialPort.getInputStream();
@@ -39,7 +48,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
 
     public void run() {
         try {
-            Thread.sleep(20000);
+            Thread.sleep(10000);
         } catch (final InterruptedException e) {
             LOG.error(e.getMessage());
         }
