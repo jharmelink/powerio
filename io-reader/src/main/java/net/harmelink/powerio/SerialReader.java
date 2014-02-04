@@ -1,12 +1,11 @@
 package net.harmelink.powerio;
 
 import gnu.io.CommPortIdentifier;
+import gnu.io.NoSuchPortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
-
-import java.util.Enumeration;
 
 public class SerialReader extends Verticle {
     private static final Logger LOG = LoggerFactory.getLogger(SerialReader.class);
@@ -26,22 +25,27 @@ public class SerialReader extends Verticle {
 
     private CommPortIdentifier getSerialPort(final String serialPortName) {
         System.setProperty("gnu.io.rxtx.SerialPorts", serialPortName);
-        final Enumeration portList = CommPortIdentifier.getPortIdentifiers();
-
-        while (portList.hasMoreElements()) {
-            final CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
-            LOG.debug("Found port {}", portId.getName());
-
-            if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                if (portId.getName().equals(serialPortName)) {
-                    LOG.debug("Using port {}", serialPortName);
-                    return portId;
-                }
-            }
+        try {
+            return CommPortIdentifier.getPortIdentifier(serialPortName);
+        } catch (final NoSuchPortException e) {
+            LOG.error("No serial port found");
+            return null;
         }
 
-        LOG.error("No serial port found");
-        return null;
+//        while (portList.hasMoreElements()) {
+//            final CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
+//            LOG.debug("Found port {}", portId.getName());
+//
+//            if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+//                if (portId.getName().equals(serialPortName)) {
+//                    LOG.debug("Using port {}", serialPortName);
+//                    return portId;
+//                }
+//            }
+//        }
+//
+//        LOG.error("No serial port found");
+//        return null;
     }
 
 }
