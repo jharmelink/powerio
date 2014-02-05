@@ -11,21 +11,13 @@
     </parent>
 
     <groupId>net.harmelink.powerio</groupId>
-    <artifactId>io-reader</artifactId>
+    <artifactId>serial-reader</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>net.harmelink.powerio</groupId>
             <artifactId>model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-platform</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.rxtx</groupId>
-            <artifactId>rxtx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -36,19 +28,26 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>jssc</groupId>
+            <artifactId>jssc</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <configFile>src/main/resources/config.json</configFile>
-                    <instances>1</instances>
+                    <mainClass>net.harmelink.powerio.SerialReader</mainClass>
                 </configuration>
             </plugin>
         </plugins>
