@@ -18,8 +18,8 @@ public class SerialReader {
 //            serialPort.writeBytes("This is a test string".getBytes());//Write data to port
 //            serialPort.readBytes();
 //            serialPort.closePort();
-            final int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR; // Prepare mask
-            serialPort.setEventsMask(mask); // Set mask
+            //final int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR; // Prepare mask
+            //serialPort.setEventsMask(mask); // Set mask
             serialPort.addEventListener(new SerialEventListener(serialPort)); // Add SerialPortEventListener
         } catch (final SerialPortException e) {
             LOG.error("Unable to open seial port: {}", e.getMessage());
