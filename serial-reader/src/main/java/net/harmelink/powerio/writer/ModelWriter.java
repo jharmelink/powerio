@@ -1,33 +1,25 @@
 package net.harmelink.powerio.writer;
 
 import net.harmelink.powerio.mapper.TelegramMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-public class ModelWriter implements Writer {
-    private static final Logger LOG = LoggerFactory.getLogger(ModelWriter.class);
+public class ModelWriter extends AbstractWriter {
 
-    private static final char END_CHAR = '!';
+    public ModelWriter(final char endChar) {
+        super(endChar);
+    }
 
-    private StringBuffer dataBuffer = new StringBuffer();
-
-    public void write(final byte[] input) throws IOException{
-        final String inputString = new String(input);
-
-        if (inputString.contains(String.valueOf(END_CHAR))) {
-            if (dataBuffer.length() == 0) {
-                dataBuffer.append(inputString.substring(inputString.indexOf(END_CHAR)));
-            } else {
-                dataBuffer.append(inputString.substring(0, inputString.indexOf(END_CHAR) - 1));
-                TelegramMapper.map(new BufferedReader(new StringReader(dataBuffer.toString())));
-                dataBuffer.setLength(0);
-            }
-        } else {
-            dataBuffer.append(inputString);
-        }
+    /**
+     * Maps a message {@link java.lang.String} to a {@link net.harmelink.powerio.model.Telegram}.
+     *
+     * @param message a message {@link String}
+     * @throws IOException when mapping fails
+     */
+    @Override
+    protected void writeMessage(final String message) throws IOException {
+        TelegramMapper.map(new BufferedReader(new StringReader(message)));
     }
 }

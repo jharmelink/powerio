@@ -4,7 +4,7 @@ import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
-import net.harmelink.powerio.writer.Writer;
+import net.harmelink.powerio.writer.AbstractWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +17,9 @@ public class SerialEventListener implements SerialPortEventListener {
 
     private final SerialPort serialPort;
 
-    private final Writer writer;
+    private final AbstractWriter writer;
 
-    public SerialEventListener(final SerialPort serialPort, final Writer writer) {
+    public SerialEventListener(final SerialPort serialPort, final AbstractWriter writer) {
         this.serialPort = serialPort;
         this.writer = writer;
     }

@@ -48,6 +48,10 @@
                 </executions>
                 <configuration>
                     <mainClass>net.harmelink.powerio.SerialReader</mainClass>
+                    <arguments>
+                        <argument>-t</argument>
+                        <argument>-l</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
