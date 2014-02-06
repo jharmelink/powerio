@@ -25,14 +25,16 @@ public class SerialEventListener implements SerialPortEventListener {
     }
 
     public void serialEvent(final SerialPortEvent event) {
-        if (event.isRXCHAR() && event.getEventValue() >= BUFFER) {
-            try {
-                byte buffer[] = serialPort.readBytes(event.getEventValue());
-                writer.write(buffer);
-            } catch (final SerialPortException e) {
-                LOG.error("Unable to read from serial port: {}", e.getMessage());
-            } catch (final IOException e) {
-                LOG.error("Unable to serialize serial data: {}", e.getMessage());
+        if (event.isRXCHAR()) {
+            if (event.getEventValue() >= BUFFER) {
+                try {
+                    byte buffer[] = serialPort.readBytes(BUFFER);
+                    writer.write(buffer);
+                } catch (final SerialPortException e) {
+                    LOG.error("Unable to read from serial port: {}", e.getMessage());
+                } catch (final IOException e) {
+                    LOG.error("Unable to serialize serial data: {}", e.getMessage());
+                }
             }
         } else if (event.isCTS()) {
             LOG.debug("CTS - {}", event.getEventValue() == 1 ? "ON" : "OFF");
