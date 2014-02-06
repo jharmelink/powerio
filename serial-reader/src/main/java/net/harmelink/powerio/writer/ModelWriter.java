@@ -8,8 +8,8 @@ import java.io.StringReader;
 
 public class ModelWriter extends AbstractWriter {
 
-    public ModelWriter(final char endChar) {
-        super(endChar);
+    public ModelWriter(final char startChar, final char endChar) {
+        super(startChar, endChar);
     }
 
     /**

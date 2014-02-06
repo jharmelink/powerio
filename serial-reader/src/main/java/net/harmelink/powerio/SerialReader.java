@@ -17,6 +17,8 @@ public class SerialReader {
 
     private static final String PORT = "/dev/ttyUSB0";
 
+    private static final char START_CHAR = '/';
+
     private static final char END_CHAR = '!';
 
     private static boolean testRun = false;
@@ -53,9 +55,9 @@ public class SerialReader {
 
     private static AbstractWriter getWriter() {
         if (testRun) {
-            return new LogWriter(END_CHAR);
+            return new LogWriter(START_CHAR, END_CHAR);
         } else {
-            return new ModelWriter(END_CHAR);
+            return new ModelWriter(START_CHAR, END_CHAR);
         }
     }
 
