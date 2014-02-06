@@ -2,14 +2,19 @@ package net.harmelink.powerio;
 
 import jssc.SerialPort;
 import jssc.SerialPortException;
+import net.harmelink.powerio.writer.LogWriter;
+import net.harmelink.powerio.writer.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SerialReader {
     private static final Logger LOG = LoggerFactory.getLogger(SerialReader.class);
 
+    private static final String PORT = "/dev/ttyUSB0";
+
     public static void main(final String... args) {
-        final SerialPort serialPort = new SerialPort("/dev/ttyUSB0");
+        final SerialPort serialPort = new SerialPort(PORT);
+        final SerialEventListener serialEventListener = new SerialEventListener(serialPort, getWriter(args));
 
         try {
             serialPort.openPort();
@@ -20,9 +25,13 @@ public class SerialReader {
 //            serialPort.closePort();
             //final int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR; // Prepare mask
             //serialPort.setEventsMask(mask); // Set mask
-            serialPort.addEventListener(new SerialEventListener(serialPort)); // Add SerialPortEventListener
+            serialPort.addEventListener(serialEventListener); // Add SerialPortEventListener
         } catch (final SerialPortException e) {
-            LOG.error("Unable to open seial port: {}", e.getMessage());
+            LOG.error("Unable to open serial port: {}", e.getMessage());
         }
+    }
+
+    private static Writer getWriter(final String... args) {
+        return new LogWriter();
     }
 }

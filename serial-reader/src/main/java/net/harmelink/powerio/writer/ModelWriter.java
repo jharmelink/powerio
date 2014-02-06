@@ -1,4 +1,4 @@
-package net.harmelink.powerio;
+package net.harmelink.powerio.writer;
 
 import net.harmelink.powerio.mapper.TelegramMapper;
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-public class ModelWriter {
+public class ModelWriter implements Writer {
     private static final Logger LOG = LoggerFactory.getLogger(ModelWriter.class);
 
     private static final char END_CHAR = '!';
