@@ -15,6 +15,6 @@ public class LogWriter extends AbstractWriter {
      */
     @Override
     protected void writeMessage(final String message) {
-        LOG.debug(message);
+        LOG.debug("Message:\n{}", message);
     }
 }
