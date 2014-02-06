@@ -2,6 +2,7 @@ package net.harmelink.powerio;
 
 import jssc.SerialPort;
 import jssc.SerialPortException;
+import jssc.SerialPortList;
 import net.harmelink.powerio.writer.LogWriter;
 import net.harmelink.powerio.writer.Writer;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ public class SerialReader {
     private static final String PORT = "/dev/ttyUSB0";
 
     public static void main(final String... args) {
+        logPorts();
         final SerialPort serialPort = new SerialPort(PORT);
         final SerialEventListener serialEventListener = new SerialEventListener(serialPort, getWriter(args));
 
@@ -33,5 +35,13 @@ public class SerialReader {
 
     private static Writer getWriter(final String... args) {
         return new LogWriter();
+    }
+
+    private static void logPorts() {
+        LOG.debug("Available ports:");
+
+        for (final String portName : SerialPortList.getPortNames()) {
+            LOG.debug(portName);
+        }
     }
 }
