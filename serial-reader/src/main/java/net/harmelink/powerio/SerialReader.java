@@ -21,13 +21,9 @@ public class SerialReader {
         try {
             serialPort.openPort();
             serialPort.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_7, SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
-//            serialPort.writeBytes("This is a test string".getBytes());//Write data to port
-//            serialPort.readBytes();
-//            serialPort.closePort();
-            //final int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR; // Prepare mask
-            //serialPort.setEventsMask(mask); // Set mask
-            serialPort.addEventListener(serialEventListener); // Add SerialPortEventListener
+                    SerialPort.PARITY_EVEN);
+            serialPort.setEventsMask(SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR);
+            serialPort.addEventListener(serialEventListener);
         } catch (final SerialPortException e) {
             LOG.error("Unable to open serial port: {}", e.getMessage());
         }
@@ -43,5 +39,7 @@ public class SerialReader {
         for (final String portName : SerialPortList.getPortNames()) {
             LOG.debug(portName);
         }
+
+        LOG.debug("Using port: {}" + PORT);
     }
 }
