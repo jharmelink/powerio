@@ -17,6 +17,11 @@
             "description": "The serial number",
             "required": true
         },
+        "powerMeterId": {
+            "type": "string",
+            "description": "Identification of the power meter",
+            "required": false
+        },
         "currentConsumption": {
             "$ref": "Consumption.schema.json",
             "required": true
@@ -41,24 +46,43 @@
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "currentRate": {
-            "type": "integer",
-            "description": "The current rate",
+        "maximumPower": {
+            "$ref": "Consumption.schema.json",
+            "required": false
+        },
+        "offPeak": {
+            "type": "boolean",
+            "description": "Currently peak rate",
             "required": true
         },
-        "currentSwitchPosition": {
+        "powerSwitchPosition": {
             "type": "boolean",
             "description": "The current switch position",
             "required": true
         },
-        "message": {
+        "gasSwitchPosition": {
+            "type": "boolean",
+            "description": "The current gas switch position",
+            "required": true
+        },
+        "messageCode": {
+            "type": "integer",
+            "description": "A message",
+            "required": false
+        },
+        "messageText": {
             "type": "string",
             "description": "A message",
             "required": false
         },
-        "gasSerial": {
+        "numberOfDevicesOnBus": {
+            "type": "integer",
+            "description": "A message",
+            "required": false
+        },
+        "gasMeterId": {
             "type": "string",
-            "description": "Serial number of the gas meter",
+            "description": "Identification of the gas meter",
             "required": false
         }
     },

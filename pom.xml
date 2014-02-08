@@ -19,7 +19,6 @@
 
     <modules>
         <module>serial-reader</module>
-        <module>io-reader-mock</module>
         <module>model</module>
     </modules>
 
@@ -89,6 +88,11 @@
                 <groupId>jssc</groupId>
                 <artifactId>jssc</artifactId>
                 <version>2.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -11,7 +11,9 @@
         "unit": {
             "type" : "string",
             "enum": [
-                "kWh"
+                "kWh",
+                "kW",
+                "A"
             ],
             "description": "Power consumption unit",
             "required" : true

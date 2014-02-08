@@ -1,4 +1,4 @@
 *.iml
 .idea
 target
-vertx_classpath.txt
+atlassian-ide-plugin.xml

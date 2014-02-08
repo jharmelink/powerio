@@ -8,8 +8,8 @@ public class ConsumptionMapper implements Mapper<Consumption> {
     private static final Logger LOG = LoggerFactory.getLogger(ConsumptionMapper.class);
 
     public Consumption map(final String line) {
-        if (line.matches("^[0-9]-[0-9]:[0-9]\\.[0-9]\\.[0-9]\\([0-9]+\\.[0-9]+\\*.+\\)$")) {
-            final String[] data = line.substring(line.indexOf('(', line.indexOf(')'))).split("\\*");
+        if (line.matches("^[0-9]-[0-9]:[0-9]+\\.[0-9]+\\.[0-9]+\\([0-9]+(\\.[0-9]+)?\\*.+\\)$")) {
+            final String[] data = line.substring(line.indexOf('(') + 1, line.indexOf(')')).split("\\*");
 
             return new Consumption()
                     .withValue(new Double(data[0]))
