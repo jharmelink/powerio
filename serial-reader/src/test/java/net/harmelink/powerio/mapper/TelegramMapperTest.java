@@ -1,15 +1,10 @@
 package net.harmelink.powerio.mapper;
 
 
-import net.harmelink.powerio.model.Consumption;
-import net.harmelink.powerio.model.Supplier;
 import net.harmelink.powerio.model.Telegram;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.BufferedReader;
-import java.io.StringReader;
 
 public class TelegramMapperTest {
     private static final String input = "KMP5 KA6U001258704319\n" +
@@ -41,40 +36,41 @@ public class TelegramMapperTest {
 
     @Test
     public void testMap() throws Exception {
-        final Telegram telegram = telegramMapper.map(new BufferedReader(new StringReader(input)));
+        final Telegram telegram = telegramMapper.map(input);
 
-        Assert.assertEquals(Supplier.Id.KA, telegram.getSupplier().getId());
-        Assert.assertEquals(Supplier.Name.KAMSTRUP, telegram.getSupplier().getName());
+        Assert.assertEquals("Unknown", telegram.getManufacturer());
+        Assert.assertEquals("KA6U001258704319", telegram.getSerialNumber());
 
-        Assert.assertEquals(new Double(0.23), telegram.getCurrentConsumption().getValue());
-        Assert.assertEquals(Consumption.Unit.K_W, telegram.getCurrentConsumption().getUnit());
+        Assert.assertEquals(new Double(0.23), telegram.getActualPowerConsumption().getValue());
+        Assert.assertEquals("kW", telegram.getActualPowerConsumption().getUnit());
 
-        Assert.assertEquals(new Double(0), telegram.getCurrentDelivery().getValue());
-        Assert.assertEquals(Consumption.Unit.K_W, telegram.getCurrentDelivery().getUnit());
+        Assert.assertEquals(new Double(0), telegram.getActualPowerDelivery().getValue());
+        Assert.assertEquals("kW", telegram.getActualPowerDelivery().getUnit());
 
-        Assert.assertEquals(new Double(3181), telegram.getTotalConsumptionOffPeak().getValue());
-        Assert.assertEquals(Consumption.Unit.K_WH, telegram.getTotalConsumptionOffPeak().getUnit());
+        Assert.assertEquals(new Double(3181), telegram.getTotalPowerConsumedPeak().getValue());
+        Assert.assertEquals("kWh", telegram.getTotalPowerConsumedPeak().getUnit());
 
-        Assert.assertEquals(new Double(2582), telegram.getTotalConsumptionPeak().getValue());
-        Assert.assertEquals(Consumption.Unit.K_WH, telegram.getTotalConsumptionPeak().getUnit());
+        Assert.assertEquals(new Double(2582), telegram.getTotalPowerConsumedOffPeak().getValue());
+        Assert.assertEquals("kWh", telegram.getTotalPowerConsumedOffPeak().getUnit());
 
-        Assert.assertEquals(new Double(0), telegram.getTotalDeliveryOffPeak().getValue());
-        Assert.assertEquals(Consumption.Unit.K_WH, telegram.getTotalConsumptionOffPeak().getUnit());
+        Assert.assertEquals(new Double(0), telegram.getTotalPowerDeliveredPeak().getValue());
+        Assert.assertEquals("kWh", telegram.getTotalPowerDeliveredPeak().getUnit());
 
-        Assert.assertEquals(new Double(0), telegram.getTotalDeliveryPeak().getValue());
-        Assert.assertEquals(Consumption.Unit.K_WH, telegram.getTotalConsumptionPeak().getUnit());
+        Assert.assertEquals(new Double(0), telegram.getTotalPowerDeliveredOffPeak().getValue());
+        Assert.assertEquals("kWh", telegram.getTotalPowerDeliveredOffPeak().getUnit());
 
-        Assert.assertEquals(new Double(999), telegram.getMaximumPower().getValue());
-        Assert.assertEquals(Consumption.Unit.A, telegram.getMaximumPower().getUnit());
+        Assert.assertEquals(new Double(999), telegram.getActualPowerThreshold().getValue());
+        Assert.assertEquals("A", telegram.getActualPowerThreshold().getUnit());
 
-        Assert.assertEquals(Boolean.TRUE, telegram.getOffPeak());
-        Assert.assertEquals(Boolean.TRUE, telegram.getPowerSwitchPosition());
-        Assert.assertEquals(Boolean.TRUE, telegram.getGasSwitchPosition());
+        Assert.assertNull(telegram.getTextMessageCodes());
+        Assert.assertNull(telegram.getTextMessage());
 
-        Assert.assertEquals("KA6U001258704319", telegram.getSerial());
-        Assert.assertEquals("204B513655303031309833303434231531", telegram.getPowerMeterId());
-        Assert.assertEquals("3238303039309871313139303563383131", telegram.getGasMeterId());
-        Assert.assertEquals("", telegram.getMessageText());
-        Assert.assertEquals(null, telegram.getMessageCode());
+        Assert.assertEquals("280090\u0098q11905c811", telegram.getBusDevices().get(0).getEquipmentIdentifier());
+        Assert.assertEquals(new Integer(3), telegram.getBusDevices().get(0).getDeviceType());
+        Assert.assertEquals("2014-01-06T22:00:00.000+01:00", telegram.getBusDevices().get(0).getMeasureDate());
+        Assert.assertEquals("OFF", telegram.getBusDevices().get(0).getValvePosition());
+
+        Assert.assertEquals(new Double(2730.079), telegram.getBusDevices().get(0).getTotalConsumed().getValue());
+        Assert.assertEquals("m3", telegram.getBusDevices().get(0).getTotalConsumed().getUnit());
     }
 }

@@ -1,21 +1,19 @@
 {
     "type": "object",
     "javaType": "net.harmelink.powerio.model.Consumption",
-    "description": "A power consumption",
+    "extends": {
+        "$ref": "P1Model.schema.json"
+    },
+    "description": "A consumption",
     "properties": {
         "value": {
             "type" : "number",
-            "description": "Power consumption value",
+            "description": "Consumption value",
             "required" : true
         },
         "unit": {
             "type" : "string",
-            "enum": [
-                "kWh",
-                "kW",
-                "A"
-            ],
-            "description": "Power consumption unit",
+            "description": "Consumption unit",
             "required" : true
         }
     },

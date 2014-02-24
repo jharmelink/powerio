@@ -7,14 +7,12 @@ import org.slf4j.LoggerFactory;
 public class IntegerMapper implements Mapper<Integer> {
     private static final Logger LOG = LoggerFactory.getLogger(IntegerMapper.class);
 
-    public Integer map(final String line) {
-        final String value = line.substring(line.indexOf('(') + 1, line.indexOf(')'));
-
-        if (!StringUtils.isEmpty(value)) {
+    public Integer map(final String integerString) {
+        if (!StringUtils.isEmpty(integerString)) {
             try {
-                return Integer.valueOf(value);
+                return Integer.valueOf(integerString);
             } catch (final NumberFormatException e) {
-                LOG.warn("Unable to map integer: {}", line);
+                LOG.warn("Unable to map integer: {}", integerString);
             }
         }
 

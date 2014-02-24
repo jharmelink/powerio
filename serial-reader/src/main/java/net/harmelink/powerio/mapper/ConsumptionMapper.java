@@ -1,22 +1,21 @@
 package net.harmelink.powerio.mapper;
 
 import net.harmelink.powerio.model.Consumption;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class ConsumptionMapper implements Mapper<Consumption> {
-    private static final Logger LOG = LoggerFactory.getLogger(ConsumptionMapper.class);
+import java.util.Arrays;
+import java.util.List;
 
-    public Consumption map(final String line) {
-        if (line.matches("^[0-9]-[0-9]:[0-9]+\\.[0-9]+\\.[0-9]+\\([0-9]+(\\.[0-9]+)?\\*.+\\)$")) {
-            final String[] data = line.substring(line.indexOf('(') + 1, line.indexOf(')')).split("\\*");
+public class ConsumptionMapper extends SimpleRegexMapper<Consumption> {
+    public ConsumptionMapper() {
+        super(Consumption.class);
+    }
 
-            return new Consumption()
-                    .withValue(new Double(data[0]))
-                    .withUnit(Consumption.Unit.fromValue(data[1]));
-        }
-
-        LOG.warn("Unable to map consumption: {}", line);
-        return null;
+    @Override
+    protected List<RegexMapping> getRegexMappings() {
+        return Arrays.asList(
+                new RegexMapping("^(.+?)\\*.+$", "value", DoubleMapper.class),
+                new RegexMapping("^.+\\*(.+?)$", "unit", StringMapper.class),
+                new RegexMapping("^.+\\n\\((.+?)\\)$", "value", DoubleMapper.class),
+                new RegexMapping("^\\((.+?)\\)\\n.+$", "unit", StringMapper.class));
     }
 }

@@ -1,88 +1,83 @@
 {
     "type": "object",
     "javaType": "net.harmelink.powerio.model.Telegram",
-    "description": "A power telegram",
+    "extends": {
+        "$ref": "P1Model.schema.json"
+    },
+    "description": "P1 telegram",
     "properties": {
-        "supplier": {
-            "$ref": "Supplier.schema.json",
-            "required": true
-        },
         "timestamp": {
             "type": "string",
             "description": "The timestamp",
             "required": true
         },
-        "serial": {
+        "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer",
+            "required": true
+        },
+        "serialNumber": {
             "type": "string",
             "description": "The serial number",
             "required": true
         },
-        "powerMeterId": {
+        "equipmentIdentifier": {
             "type": "string",
             "description": "Identification of the power meter",
-            "required": false
+            "required": true
         },
-        "currentConsumption": {
+        "totalPowerConsumedPeak": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "currentDelivery": {
+        "totalPowerConsumedOffPeak": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "totalConsumptionPeak": {
+        "totalPowerDeliveredPeak": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "totalConsumptionOffPeak": {
+        "totalPowerDeliveredOffPeak": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "totalDeliveryPeak": {
+        "powerTariffIndicator": {
+            "type": "string",
+            "required": true
+        },
+        "actualPowerConsumption": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "totalDeliveryOffPeak": {
+        "actualPowerDelivery": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "maximumPower": {
+        "actualPowerThreshold": {
             "$ref": "Consumption.schema.json",
-            "required": false
-        },
-        "offPeak": {
-            "type": "boolean",
-            "description": "Currently peak rate",
             "required": true
         },
         "powerSwitchPosition": {
-            "type": "boolean",
-            "description": "The current switch position",
+            "type": "string",
+            "description": "Power switch position identifier",
             "required": true
         },
-        "gasSwitchPosition": {
-            "type": "boolean",
-            "description": "The current gas switch position",
-            "required": true
-        },
-        "messageCode": {
-            "type": "integer",
-            "description": "A message",
-            "required": false
-        },
-        "messageText": {
+        "textMessageCodes": {
             "type": "string",
-            "description": "A message",
+            "description": "Message codes",
             "required": false
         },
-        "numberOfDevicesOnBus": {
-            "type": "integer",
-            "description": "A message",
-            "required": false
-        },
-        "gasMeterId": {
+        "textMessage": {
             "type": "string",
-            "description": "Identification of the gas meter",
+            "description": "Text message",
+            "required": false
+        },
+        "busDevices": {
+            "type": "array",
+            "items": {
+                "$ref": "BusDevice.schema.json"
+            },
             "required": false
         }
     },
