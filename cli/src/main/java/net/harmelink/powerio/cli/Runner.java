@@ -9,6 +9,8 @@ import net.harmelink.powerio.writer.log.LogWriter;
 import org.apache.commons.cli.*;
 
 public final class Runner {
+    private static final String APP = "powerio";
+
     private static final String DEFAULT_PORT = "/dev/ttyUSB0";
 
     private static InputReader inputReader;
@@ -24,24 +26,39 @@ public final class Runner {
 
     private static Options getOptions() {
         final Options options = new Options();
-        options.addOption("i", true, "input reader (default serial)");
-        options.addOption("m", true, "input mapper (default mapper)");
-        options.addOption("o", true, "output writer (default mongo)");
-        options.addOption("p", true, "port (default /dev/ttyUSB0)");
+        options.addOption("d", "debug", false, "Enable debug mode");
+        options.addOption("h", "help", false, "Show this message");
+        options.addOption("i", "in", true, "Input reader (default p1)");
+        options.addOption("m", "map", true, "Input mapper (default mapper)");
+        options.addOption("o", "out", true, "Output writer (default mongo)");
+        options.addOption("p", "port", true, "Port (default /dev/ttyUSB0)");
 
         return options;
     }
 
     private static CommandLine getCommandLine(final String... args) {
         final CommandLineParser parser = new DefaultParser();
+        final Options options = getOptions();
 
         try {
-            return parser.parse(getOptions(), args);
+            final CommandLine commandLine = parser.parse(options, args);
+            if (commandLine.hasOption("h")) {
+                showHelp(options);
+            }
+
+            return commandLine;
         } catch (final ParseException e) {
-            System.out.println("Unable to read command line options.");
-            System.exit(1);
-            return null;
+            System.out.println(APP + ": " + e.getMessage());
+            showHelp(options);
         }
+
+        return null;
+    }
+
+    private static void showHelp(final Options options) {
+        final HelpFormatter helpFormatter = new HelpFormatter();
+        helpFormatter.printHelp(APP, options);
+        System.exit(1);
     }
 
     private static void setInputReader(final CommandLine commandLine) {
