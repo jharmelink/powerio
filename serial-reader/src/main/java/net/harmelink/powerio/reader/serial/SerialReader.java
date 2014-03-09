@@ -43,7 +43,7 @@ public class SerialReader implements InputReader {
             serialPort.setEventsMask(SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR);
             serialPort.addEventListener(serialEventListener);
         } catch (final SerialPortException e) {
-            LOG.error("Unable to open serial port: {}", e.getMessage());
+            LOG.error("Unable to open serial port for reading: {}", port);
         }
     }
 
