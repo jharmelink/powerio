@@ -36,7 +36,7 @@ public class PrintWriter extends AbstractWriter {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            System.out.println("Message:\n" + mapper.writeValueAsString(telegram));
+            System.out.println("Output:\n" + mapper.writeValueAsString(telegram));
         } catch (final JsonProcessingException e) {
             LOG.error("Unable to convert telegram to JSON string.");
         }

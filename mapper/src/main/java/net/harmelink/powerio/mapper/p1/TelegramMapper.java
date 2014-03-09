@@ -29,8 +29,8 @@ public class TelegramMapper extends SimpleRegexMapper<Telegram> {
 
     protected List<RegexMapping> getRegexMappings() {
         return Arrays.asList(
-                new RegexMapping("^(.+?)\\s", "manufacturer", ManufacturerMapper.class),
-                new RegexMapping("^.*\\s(.+?)\\n", "serialNumber", StringMapper.class),
+                new RegexMapping("^.+\\s(.{2}?)", "manufacturer", ManufacturerMapper.class),
+                new RegexMapping("^.+\\s(.+?)\\n", "serialNumber", StringMapper.class),
                 new RegexMapping("0-0:96\\.1\\.1\\((.+?)\\)", "equipmentIdentifier", HexMapper.class),
                 new RegexMapping("1-0:1\\.8\\.1\\((.+?)\\)", "totalPowerConsumedPeak", ConsumptionMapper.class),
                 new RegexMapping("1-0:1\\.8\\.2\\((.+?)\\)", "totalPowerConsumedOffPeak", ConsumptionMapper.class),

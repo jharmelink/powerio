@@ -38,7 +38,7 @@ public class TelegramMapperTest {
     public void testMap() throws Exception {
         final Telegram telegram = telegramMapper.map(input);
 
-        Assert.assertEquals("Unknown", telegram.getManufacturer());
+        Assert.assertEquals("Kamstrup", telegram.getManufacturer());
         Assert.assertEquals("KA6U001258704319", telegram.getSerialNumber());
 
         Assert.assertEquals(new Double(0.23), telegram.getActualPowerConsumption().getValue());
