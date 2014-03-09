@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>net.harmelink.powerio</groupId>
-            <artifactId>log-writer</artifactId>
+            <artifactId>print-writer</artifactId>
         </dependency>
         <dependency>
             <groupId>net.harmelink.powerio</groupId>

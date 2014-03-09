@@ -4,8 +4,8 @@ import net.harmelink.powerio.mapper.Mapper;
 import net.harmelink.powerio.mapper.p1.TelegramMapper;
 import net.harmelink.powerio.reader.InputReader;
 import net.harmelink.powerio.reader.serial.SerialReader;
+import net.harmelink.powerio.writer.PrintWriter;
 import net.harmelink.powerio.writer.Writer;
-import net.harmelink.powerio.writer.log.LogWriter;
 import org.apache.commons.cli.*;
 
 public final class Runner {
@@ -95,7 +95,7 @@ public final class Runner {
                     return null;
             }
         } else {
-            return new LogWriter(mapper);
+            return new PrintWriter(mapper);
         }
     }
 

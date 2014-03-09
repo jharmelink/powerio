@@ -1,18 +1,19 @@
-package net.harmelink.powerio.writer.log;
+package net.harmelink.powerio.writer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import net.harmelink.powerio.mapper.Mapper;
 import net.harmelink.powerio.mapper.p1.TelegramMapper;
 import net.harmelink.powerio.model.Telegram;
-import net.harmelink.powerio.writer.AbstractWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogWriter extends AbstractWriter {
-    private static final Logger LOG = LoggerFactory.getLogger(LogWriter.class);
+public class PrintWriter extends AbstractWriter {
 
-    public LogWriter(final Mapper mapper) {
+    private static final Logger LOG = LoggerFactory.getLogger(PrintWriter.class);
+
+    public PrintWriter(final Mapper mapper) {
         super(mapper);
     }
 
@@ -21,8 +22,7 @@ public class LogWriter extends AbstractWriter {
      */
     @Override
     protected void writeMessage(final String message) {
-        LOG.debug("Message:\n{}", message);
-        final ObjectMapper mapper = new ObjectMapper();
+        System.out.println("Message:\n" + message);
         final Telegram telegram;
 
         try {
@@ -32,8 +32,11 @@ public class LogWriter extends AbstractWriter {
             return;
         }
 
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         try {
-            LOG.debug(mapper.writeValueAsString(telegram));
+            System.out.println("Message:\n" + mapper.writeValueAsString(telegram));
         } catch (final JsonProcessingException e) {
             LOG.error("Unable to convert telegram to JSON string.");
         }

@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>net.harmelink.powerio</groupId>
-    <artifactId>log-writer</artifactId>
+    <artifactId>print-writer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>

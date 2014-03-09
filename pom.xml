@@ -24,7 +24,7 @@
     <modules>
         <module>api</module>
         <module>cli</module>
-        <module>log-writer</module>
+        <module>print-writer</module>
         <module>mapper</module>
         <module>model</module>
         <module>mongo-writer</module>
@@ -49,7 +49,7 @@
             </dependency>
             <dependency>
                 <groupId>net.harmelink.powerio</groupId>
-                <artifactId>log-writer</artifactId>
+                <artifactId>print-writer</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
