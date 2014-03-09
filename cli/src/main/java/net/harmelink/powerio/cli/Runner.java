@@ -8,12 +8,15 @@ import net.harmelink.powerio.writer.Writer;
 import net.harmelink.powerio.writer.log.LogWriter;
 import org.apache.commons.cli.*;
 
-public class Runner {
+public final class Runner {
     private static final String DEFAULT_PORT = "/dev/ttyUSB0";
 
     private static InputReader inputReader;
 
-    public static final void main(final String... args) {
+    private Runner() {
+    }
+
+    public static void main(final String... args) {
         final CommandLine commandLine = getCommandLine(args);
         setInputReader(commandLine);
         inputReader.start();
@@ -35,7 +38,7 @@ public class Runner {
         try {
             return parser.parse(getOptions(), args);
         } catch (final ParseException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Unable to read command line options.");
             System.exit(1);
             return null;
         }
