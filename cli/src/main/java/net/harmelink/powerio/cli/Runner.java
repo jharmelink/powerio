@@ -2,6 +2,7 @@ package net.harmelink.powerio.cli;
 
 import net.harmelink.powerio.mapper.Mapper;
 import net.harmelink.powerio.mapper.p1.TelegramMapper;
+import net.harmelink.powerio.persistence.rrd.RrdWriter;
 import net.harmelink.powerio.reader.InputReader;
 import net.harmelink.powerio.reader.serial.SerialReader;
 import net.harmelink.powerio.writer.PrintWriter;
@@ -89,6 +90,10 @@ public final class Runner {
 
         if (commandLine.hasOption("o")) {
             switch (commandLine.getOptionValue("o")) {
+                case "rrd":
+                    return new RrdWriter(mapper);
+                case "print":
+                    return new PrintWriter(mapper);
                 default:
                     System.out.println("Unknown output: " + commandLine.getOptionValue("o"));
                     System.exit(1);

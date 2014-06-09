@@ -1,6 +1,5 @@
 package net.harmelink.powerio.mapper.p1;
 
-
 import net.harmelink.powerio.model.Telegram;
 import org.junit.Assert;
 import org.junit.Before;

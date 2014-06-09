@@ -17,12 +17,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.harmelink.powerio</groupId>
+            <groupId>net.harmelink.powerio.persistence</groupId>
             <artifactId>print-writer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.harmelink.powerio.persistence</groupId>
+            <artifactId>rrd-persistor</artifactId>
         </dependency>
         <dependency>
             <groupId>net.harmelink.powerio</groupId>
             <artifactId>serial-reader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.harmelink.powerio</groupId>
+            <artifactId>mapper</artifactId>
         </dependency>
 
         <dependency>

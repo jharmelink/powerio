@@ -5,19 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.harmelink.powerio</groupId>
         <artifactId>powerio</artifactId>
+        <groupId>net.harmelink.powerio</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>net.harmelink.powerio</groupId>
-    <artifactId>api</artifactId>
+    <artifactId>persistence</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.harmelink.powerio</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>rrd-persistor</module>
+        <module>print-writer</module>
+    </modules>
 </project>

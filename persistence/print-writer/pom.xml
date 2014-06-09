@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>net.harmelink.powerio</groupId>
-        <artifactId>powerio</artifactId>
+        <artifactId>persistence</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.harmelink.powerio</groupId>
-    <artifactId>mongo-writer</artifactId>
+    <groupId>net.harmelink.powerio.persistence</groupId>
+    <artifactId>print-writer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
