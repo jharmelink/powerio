@@ -1,7 +1,0 @@
-{
-    "type": "object",
-    "javaType": "net.harmelink.powerio.model.P1Model",
-    "description": "P1 Model",
-    "properties": {},
-    "additionalProperties": false
-}

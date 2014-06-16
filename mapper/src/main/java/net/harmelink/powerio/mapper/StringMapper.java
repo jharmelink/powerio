@@ -1,7 +1,9 @@
 package net.harmelink.powerio.mapper;
 
-public class StringMapper extends AbstractMapper implements Mapper<String> {
-    public String map(final String string) {
-        return string;
+public class StringMapper extends RegexMapper<String> {
+
+    @Override
+    protected String mapToObject(final String data) {
+        return data;
     }
 }

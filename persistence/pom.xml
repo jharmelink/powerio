@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.harmelink.powerio</groupId>
+    <groupId>net.harmelink.powerio.persistence</groupId>
     <artifactId>persistence</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -18,5 +18,6 @@
     <modules>
         <module>rrd-persistor</module>
         <module>print-writer</module>
+        <module>elasticsearch</module>
     </modules>
 </project>

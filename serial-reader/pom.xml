@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.harmelink.powerio</groupId>
     <artifactId>serial-reader</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -37,12 +36,12 @@
             <artifactId>jssc</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
-    </dependencies>
+      </dependencies>
 </project>

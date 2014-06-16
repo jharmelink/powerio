@@ -1,7 +1,6 @@
 package net.harmelink.powerio.persistence.rrd;
 
-import net.harmelink.powerio.mapper.p1.TelegramMapper;
-import org.junit.Test;
+import net.harmelink.powerio.mapper.p1.P1Mapper;
 import org.rrd4j.ConsolFun;
 import org.rrd4j.core.FetchData;
 import org.rrd4j.core.FetchRequest;
@@ -10,6 +9,7 @@ import org.rrd4j.core.RrdDb;
 import java.io.IOException;
 
 public class RrdWriterTest {
+
     private static final String input = "KMP5 KA6U001258704319\n" +
             "\n" +
             "0-0:96.1.1(204B513655303031309833303434231531)\n" +
@@ -30,13 +30,13 @@ public class RrdWriterTest {
             "(02730.079)\n" +
             "0-1:24.4.0(1)";
 
-    private RrdWriter rrdWriter = new RrdWriter(new TelegramMapper());
+    private final RrdWriter rrdWriter = new RrdWriter(new P1Mapper());
 
-    @Test
+    // @Test
     public void testWrite() throws IOException, InterruptedException {
         final long start = System.currentTimeMillis();
         for (int i = 0; i < 10; i++) {
-            rrdWriter.writeMessage(input);
+            rrdWriter.write(input);
             Thread.sleep(5000);
         }
 

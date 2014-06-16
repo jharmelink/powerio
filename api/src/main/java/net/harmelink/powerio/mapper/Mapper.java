@@ -1,9 +1,9 @@
 package net.harmelink.powerio.mapper;
 
-public interface Mapper<T> {
-    T map(String data) throws InstantiationException, IllegalAccessException;
+import net.harmelink.powerio.model.Telegram;
 
-    char getStartChar();
+import java.util.List;
 
-    char getEndChar();
+public interface Mapper {
+    List<Telegram> map(String data);
 }

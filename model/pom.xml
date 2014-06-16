@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.harmelink.powerio</groupId>
     <artifactId>model</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -28,23 +27,19 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.googlecode.jsonschema2pojo</groupId>
+                <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -61,6 +56,7 @@
                             <includeJsr303Annotations>true</includeJsr303Annotations>
                             <includeHashcodeAndEquals>true</includeHashcodeAndEquals>
                             <includeToString>false</includeToString>
+                            <useCommonsLang3>true</useCommonsLang3>
                         </configuration>
                     </execution>
                 </executions>

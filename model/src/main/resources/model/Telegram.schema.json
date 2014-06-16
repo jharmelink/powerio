@@ -1,9 +1,6 @@
 {
     "type": "object",
     "javaType": "net.harmelink.powerio.model.Telegram",
-    "extends": {
-        "$ref": "P1Model.schema.json"
-    },
     "description": "P1 telegram",
     "properties": {
         "timestamp": {
@@ -11,74 +8,78 @@
             "description": "The timestamp",
             "required": true
         },
+        "deviceType": {
+            "type": "string",
+            "enum": [
+                "power",
+                "gas",
+                "water"
+            ],
+            "description": "The measuring device type",
+            "required": true
+        },
         "manufacturer": {
             "type": "string",
-            "description": "Manufacturer",
-            "required": true
+            "description": "Manufacturer"
         },
         "serialNumber": {
             "type": "string",
-            "description": "The serial number",
-            "required": true
+            "description": "The serial number"
         },
         "equipmentIdentifier": {
             "type": "string",
-            "description": "Identification of the power meter",
-            "required": true
+            "description": "Identification of the power meter"
         },
-        "totalPowerConsumedPeak": {
+        "totalConsumedPeak": {
+            "$ref": "Consumption.schema.json"
+        },
+        "totalConsumedOffPeak": {
+            "$ref": "Consumption.schema.json"
+        },
+        "totalDeliveredPeak": {
+            "$ref": "Consumption.schema.json"
+        },
+        "totalDeliveredOffPeak": {
+            "$ref": "Consumption.schema.json"
+        },
+        "tariffIndicator": {
+            "type": "string"
+        },
+        "actualConsumption": {
             "$ref": "Consumption.schema.json",
             "required": true
         },
-        "totalPowerConsumedOffPeak": {
-            "$ref": "Consumption.schema.json",
-            "required": true
+        "actualDelivery": {
+            "$ref": "Consumption.schema.json"
         },
-        "totalPowerDeliveredPeak": {
-            "$ref": "Consumption.schema.json",
-            "required": true
+        "actualThreshold": {
+            "$ref": "Consumption.schema.json"
         },
-        "totalPowerDeliveredOffPeak": {
-            "$ref": "Consumption.schema.json",
-            "required": true
-        },
-        "powerTariffIndicator": {
+        "switchPosition": {
             "type": "string",
-            "required": true
+            "enum": [
+                "in",
+                "out",
+                "enabled"
+            ],
+            "description": "Power switch position identifier"
         },
-        "actualPowerConsumption": {
-            "$ref": "Consumption.schema.json",
-            "required": true
-        },
-        "actualPowerDelivery": {
-            "$ref": "Consumption.schema.json",
-            "required": true
-        },
-        "actualPowerThreshold": {
-            "$ref": "Consumption.schema.json",
-            "required": true
-        },
-        "powerSwitchPosition": {
+        "valvePosition": {
             "type": "string",
-            "description": "Power switch position identifier",
-            "required": true
+            "enum": [
+                "on",
+                "off",
+                "released"
+            ],
+            "description": "Valve position identifier"
         },
         "textMessageCodes": {
             "type": "string",
-            "description": "Message codes",
-            "required": false
+            "description": "Message codes"
         },
         "textMessage": {
             "type": "string",
-            "description": "Text message",
-            "required": false
-        },
-        "busDevices": {
-            "type": "array",
-            "items": {
-                "$ref": "BusDevice.schema.json"
-            },
-            "required": false
+            "description": "Text message"
         }
     },
     "additionalProperties": false

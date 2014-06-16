@@ -1,22 +1,26 @@
 package net.harmelink.powerio.mapper.p1;
 
-import net.harmelink.powerio.mapper.AbstractMapper;
-import net.harmelink.powerio.mapper.Mapper;
+import net.harmelink.powerio.mapper.RegexMapper;
+import net.harmelink.powerio.model.Telegram.SwitchPosition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SwitchPositionMapper extends AbstractMapper implements Mapper<String> {
+public class SwitchPositionMapper extends RegexMapper<SwitchPosition> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SwitchPositionMapper.class);
+
     @Override
-    public String map(final String stringValue) {
-        final int value = Integer.valueOf(stringValue);
-
-        switch (value) {
-            case 0:
-                return "IN";
-            case 1:
-                return "OUT";
-            case 2:
-                return "ENABLED";
+    public SwitchPosition mapToObject(final String stringValue) {
+        switch (stringValue) {
+            case "0":
+                return SwitchPosition.IN;
+            case "1":
+                return SwitchPosition.OUT;
+            case "2":
+                return SwitchPosition.ENABLED;
             default:
-                return "UNKNOWN";
+                LOG.warn("Unable to map '{}' to SwitchPosition", stringValue);
+                return null;
         }
     }
 }

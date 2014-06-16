@@ -1,10 +1,11 @@
 package net.harmelink.powerio.mapper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
-public class HexMapper extends AbstractMapper implements Mapper<String> {
+public class HexMapper extends RegexMapper<String> {
+
     @Override
-    public String map(final String hexString) {
+    public String mapToObject(final String hexString) {
         if (!StringUtils.isEmpty(hexString)) {
             final StringBuilder stringBuilder = new StringBuilder();
 

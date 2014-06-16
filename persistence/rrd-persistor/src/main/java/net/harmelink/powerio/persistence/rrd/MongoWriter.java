@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-public class MongoWriter {
+class MongoWriter {
     private static final Logger LOG = LoggerFactory.getLogger(RrdWriter.class);
     private static final String HOST = "localhost";
     private static final int PORT = 27017;

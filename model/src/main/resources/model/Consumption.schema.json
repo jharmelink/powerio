@@ -1,9 +1,6 @@
 {
     "type": "object",
     "javaType": "net.harmelink.powerio.model.Consumption",
-    "extends": {
-        "$ref": "P1Model.schema.json"
-    },
     "description": "A consumption",
     "properties": {
         "value": {

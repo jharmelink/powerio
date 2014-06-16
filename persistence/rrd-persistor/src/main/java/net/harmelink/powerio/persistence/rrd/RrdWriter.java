@@ -1,18 +1,17 @@
 package net.harmelink.powerio.persistence.rrd;
 
+import com.google.inject.Inject;
 import net.harmelink.powerio.mapper.Mapper;
-import net.harmelink.powerio.mapper.p1.TelegramMapper;
 import net.harmelink.powerio.model.Telegram;
-import net.harmelink.powerio.writer.AbstractWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.harmelink.powerio.persistence.AbstractWriter;
+
+import java.util.List;
 
 public class RrdWriter extends AbstractWriter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RrdWriter.class);
+    private final MongoWriter mongoWriter;
 
-    private MongoWriter mongoWriter;
-
+    @Inject
     public RrdWriter(final Mapper mapper) {
         super(mapper);
         mongoWriter = new MongoWriter("p1", 5000);
@@ -22,18 +21,8 @@ public class RrdWriter extends AbstractWriter {
      * {@inheritDoc}
      */
     @Override
-    protected void writeMessage(final String message) {
-        System.out.println("Message:\n" + message);
-        final Telegram telegram;
-
-        try {
-            telegram = new TelegramMapper().map(message);
-        } catch (final InstantiationException | IllegalAccessException e) {
-            LOG.error(e.getMessage());
-            return;
-        }
-
-        mongoWriter.write(System.currentTimeMillis(), telegram.getActualPowerConsumption().getValue());
+    protected void writeMessage(final List<Telegram> telegrams) {
+        mongoWriter.write(System.currentTimeMillis(), telegrams.get(0).getActualConsumption().getValue());
     }
 }
 

@@ -1,15 +1,19 @@
 package net.harmelink.powerio.mapper.p1;
 
-import net.harmelink.powerio.mapper.AbstractMapper;
-import net.harmelink.powerio.mapper.Mapper;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import net.harmelink.powerio.mapper.RegexMapper;
 
-public class DateTimeMapper extends AbstractMapper implements Mapper<String> {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yymmddHHmmss");
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeMapper extends RegexMapper<String> {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyMMddHHmmss");
 
     @Override
-    public String map(final String dateTimeString) throws InstantiationException, IllegalAccessException {
-        return FORMATTER.parseDateTime(dateTimeString).toString();
+    public String mapToObject(final String dateTimeString) {
+        final LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, FORMATTER);
+        return ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toString();
     }
 }

@@ -4,32 +4,33 @@ import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
-import net.harmelink.powerio.writer.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 
-public class SerialEventListener implements SerialPortEventListener {
+class SerialEventListener implements SerialPortEventListener {
+
     private static final Logger LOG = LoggerFactory.getLogger(SerialEventListener.class);
 
     private static final int BUFFER = 20;
 
     private final SerialPort serialPort;
 
-    private final Writer writer;
+    private final BufferedOutputStream outputStream;
 
-    public SerialEventListener(final SerialPort serialPort, final Writer writer) {
+    public SerialEventListener(final SerialPort serialPort, final BufferedOutputStream outputStream) {
         this.serialPort = serialPort;
-        this.writer = writer;
+        this.outputStream = outputStream;
     }
 
     public void serialEvent(final SerialPortEvent event) {
         if (event.isRXCHAR()) {
             if (event.getEventValue() >= BUFFER) {
                 try {
-                    byte buffer[] = serialPort.readBytes(BUFFER);
-                    writer.write(buffer);
+                    final byte[] buffer = serialPort.readBytes(BUFFER);
+                    outputStream.write(buffer);
                 } catch (final SerialPortException e) {
                     LOG.error("Unable to read from serial port: {}", e.getMessage());
                 } catch (final IOException e) {
